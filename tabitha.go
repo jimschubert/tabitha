@@ -158,7 +158,7 @@ func (w *Writer) SpacerLine() (err error) {
 	}
 
 	row := make([]cell, 0)
-	for _, _ = range w.widths {
+	for range w.widths {
 		c := cell{data: "-", format: "%*s"}
 		row = append(row, c)
 	}

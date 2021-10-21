@@ -25,7 +25,7 @@ go test -v -race -cover ./...
 
 The following example demonstrates usage (sans error handling).
 ```
-tt := tabitha.New()
+tt := tabitha.NewWriter()
 tt.Header("First", "Second", "Third", "Fourth")
 tt.SpacerLine()
 tt.AddLine("I'm first", "I'm second", "I'm third", "I'm fourth")
