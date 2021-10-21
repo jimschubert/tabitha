@@ -5,7 +5,6 @@ tabitha is a no-frills tabular formatter for the terminal.
 [![Apache 2.0 License](https://img.shields.io/badge/License-Apache%202.0-blue)](./LICENSE)
 ![Go Version](https://img.shields.io/github/go-mod/go-version/jimschubert/tabitha)
 [![Go Build](https://github.com/jimschubert/tabitha/actions/workflows/build.yml/badge.svg)](https://github.com/jimschubert/tabitha/actions/workflows/build.yml)
-![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/jimschubert/tabitha?color=orange&label=Docker%20Image%20Size)
 [![Go Report Card](https://goreportcard.com/badge/github.com/jimschubert/tabitha)](https://goreportcard.com/report/github.com/jimschubert/tabitha)
 
 ## Features
