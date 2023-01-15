@@ -5,9 +5,10 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"regexp"
 	"strings"
 	"unicode/utf8"
+
+	"github.com/jimschubert/stripansi"
 )
 
 // writerError mirrors behavior of osError in text/tabwriter, essentially allowing a "thrown" error using panics
@@ -101,9 +102,7 @@ func (w *Writer) handlePanic(err *error, where string) {
 func (w *Writer) calculateWidth(input string) int {
 	var length int
 	if w.ignoreAnsiWidths {
-		pattern := `(\x1b\[[0-9;]+[a-zA-Z~])`
-		re := regexp.MustCompilePOSIX(pattern)
-		length = utf8.RuneCountInString(re.ReplaceAllString(input, ""))
+		length = utf8.RuneCountInString(stripansi.String(input))
 	} else {
 		length = utf8.RuneCountInString(input)
 	}

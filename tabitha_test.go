@@ -156,188 +156,22 @@ func ExampleWriter_WriteTo_withInitialization() {
 	// |Paragraph |       Text |   And more|
 }
 
-//
-// func TestNew(t *testing.T) {
-// 	tests := []struct {
-// 		name string
-// 		want *Writer
-// 	}{
-// 		// TODO: Add test cases.
-// 	}
-// 	for _, tt := range tests {
-// 		t.Run(tt.name, func(t *testing.T) {
-// 			if got := NewWriter(); !reflect.DeepEqual(got, tt.want) {
-// 				t.Errorf("NewWriter() = %v, want %v", got, tt.want)
-// 			}
-// 		})
-// 	}
-// }
-//
-// func TestWriter_AddLine(t *testing.T) {
-// 	type fields struct {
-// 		header []string
-// 		rows   []cells
-// 		widths []int
-// 	}
-// 	type args struct {
-// 		input []string
-// 	}
-// 	tests := []struct {
-// 		name    string
-// 		fields  fields
-// 		args    args
-// 		wantErr bool
-// 	}{
-// 		// TODO: Add test cases.
-// 	}
-// 	for _, tt := range tests {
-// 		t.Run(tt.name, func(t *testing.T) {
-// 			w := Writer{
-// 				header: tt.fields.header,
-// 				rows:   tt.fields.rows,
-// 				widths: tt.fields.widths,
-// 			}
-// 			if err := w.AddLine(tt.args.input...); (err != nil) != tt.wantErr {
-// 				t.Errorf("AddLine() error = %v, wantErr %v", err, tt.wantErr)
-// 			}
-// 		})
-// 	}
-// }
-//
-// func TestWriter_Header(t *testing.T) {
-// 	type fields struct {
-// 		header []string
-// 		rows   []cells
-// 		widths []int
-// 	}
-// 	type args struct {
-// 		input []string
-// 	}
-// 	tests := []struct {
-// 		name    string
-// 		fields  fields
-// 		args    args
-// 		wantErr bool
-// 	}{
-// 		// TODO: Add test cases.
-// 	}
-// 	for _, tt := range tests {
-// 		t.Run(tt.name, func(t *testing.T) {
-// 			w := Writer{
-// 				header: tt.fields.header,
-// 				rows:   tt.fields.rows,
-// 				widths: tt.fields.widths,
-// 			}
-// 			if err := w.Header(tt.args.input...); (err != nil) != tt.wantErr {
-// 				t.Errorf("Header() error = %v, wantErr %v", err, tt.wantErr)
-// 			}
-// 		})
-// 	}
-// }
-//
+func ExampleWriter_WriteTo_ignoreAnsiWidths() {
+	// Jim Schubert => column width of 12 characters rather than 100+
+	jim := "\u001B[31mJ\u001B[39m\u001B[33mi\u001B[39m\u001B[32mm\u001B[39m \u001B[35mS\u001B[39m\u001B[31mc\u001B[39m\u001B[33mh\u001B[39m\u001B[32mu\u001B[39m\u001B[34mb\u001B[39m\u001B[35me\u001B[39m\u001B[31mr\u001B[39m\u001B[33mt\u001B[39m"
+	tt := NewWriter()
+	tt.IgnoreAnsiWidths(true)
+	_ = tt.Header("Name", "Occupation")
+	_ = tt.SpacerLine()
+	_ = tt.AddLine(jim, "Software Engineer")
+	_ = tt.AddLine("Al Bundy", "Shoe Salesman")
+	_ = tt.SpacerLine()
+	_, _ = tt.WriteTo(os.Stdout)
 
-//
-// func TestWriter_handlePanic(t *testing.T) {
-// 	type fields struct {
-// 		header []string
-// 		rows   []cells
-// 		widths []int
-// 	}
-// 	type args struct {
-// 		err   *error
-// 		where string
-// 	}
-// 	tests := []struct {
-// 		name   string
-// 		fields fields
-// 		args   args
-// 	}{
-// 		// TODO: Add test cases.
-// 	}
-// 	for _, tt := range tests {
-// 		t.Run(tt.name, func(t *testing.T) {
-// 			w := Writer{
-// 				header: tt.fields.header,
-// 				rows:   tt.fields.rows,
-// 				widths: tt.fields.widths,
-// 			}
-// 		})
-// 	}
-// }
-//
-// func TestWriter_initWidths(t *testing.T) {
-// 	type fields struct {
-// 		header []string
-// 		rows   []cells
-// 		widths []int
-// 	}
-// 	type args struct {
-// 		input []string
-// 	}
-// 	tests := []struct {
-// 		name   string
-// 		fields fields
-// 		args   args
-// 	}{
-// 		// TODO: Add test cases.
-// 	}
-// 	for _, tt := range tests {
-// 		t.Run(tt.name, func(t *testing.T) {
-// 			w := Writer{
-// 				header: tt.fields.header,
-// 				rows:   tt.fields.rows,
-// 				widths: tt.fields.widths,
-// 			}
-// 		})
-// 	}
-// }
-//
-// func TestWriter_reset(t *testing.T) {
-// 	type fields struct {
-// 		header []string
-// 		rows   []cells
-// 		widths []int
-// 	}
-// 	tests := []struct {
-// 		name   string
-// 		fields fields
-// 	}{
-// 		// TODO: Add test cases.
-// 	}
-// 	for _, tt := range tests {
-// 		t.Run(tt.name, func(t *testing.T) {
-// 			w := Writer{
-// 				header: tt.fields.header,
-// 				rows:   tt.fields.rows,
-// 				widths: tt.fields.widths,
-// 			}
-// 		})
-// 	}
-// }
-//
-// func TestWriter_updateWidths(t *testing.T) {
-// 	type fields struct {
-// 		header []string
-// 		rows   []cells
-// 		widths []int
-// 	}
-// 	type args struct {
-// 		input []string
-// 	}
-// 	tests := []struct {
-// 		name   string
-// 		fields fields
-// 		args   args
-// 	}{
-// 		// TODO: Add test cases.
-// 	}
-// 	for _, tt := range tests {
-// 		t.Run(tt.name, func(t *testing.T) {
-// 			w := Writer{
-// 				header: tt.fields.header,
-// 				rows:   tt.fields.rows,
-// 				widths: tt.fields.widths,
-// 			}
-// 		})
-// 	}
-// }
+	// Output:
+	// Name	       Occupation
+	// ------------	-----------------
+	// [31mJ[39m[33mi[39m[32mm[39m [35mS[39m[31mc[39m[33mh[39m[32mu[39m[34mb[39m[35me[39m[31mr[39m[33mt[39m	Software Engineer
+	//     Al Bundy	    Shoe Salesman
+	// ------------	-----------------
+}
