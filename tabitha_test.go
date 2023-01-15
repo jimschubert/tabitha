@@ -156,7 +156,8 @@ func ExampleWriter_WriteTo_withInitialization() {
 	// |Paragraph |       Text |   And more|
 }
 
-func ExampleWriter_WriteTo_stripping_ansi_characters() {
+func ExampleWriter_WriteTo_ignoreAnsiWidths() {
+	// Jim Schubert => column width of 12 characters rather than 100+
 	jim := "\u001B[31mJ\u001B[39m\u001B[33mi\u001B[39m\u001B[32mm\u001B[39m \u001B[35mS\u001B[39m\u001B[31mc\u001B[39m\u001B[33mh\u001B[39m\u001B[32mu\u001B[39m\u001B[34mb\u001B[39m\u001B[35me\u001B[39m\u001B[31mr\u001B[39m\u001B[33mt\u001B[39m"
 	tt := NewWriter()
 	tt.IgnoreAnsiWidths(true)
