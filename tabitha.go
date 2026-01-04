@@ -194,7 +194,7 @@ func (w *Writer) write(writer io.Writer, cell cell, index int) (int64, error) {
 			panic(writerError{err: errors.New("invalid spacer format (requires * width pattern)")})
 		}
 		formatted := fmt.Sprintf(cell.format, width, value)
-		value = strings.Replace(formatted, " ", cell.data, -1)
+		value = strings.ReplaceAll(formatted, " ", cell.data)
 	}
 
 	if w.lineStart != nil {
