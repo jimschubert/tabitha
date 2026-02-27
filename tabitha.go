@@ -146,8 +146,10 @@ func (w *Writer) Header(input ...string) (err error) {
 	return
 }
 
-// SpacerLine registers a line of '-' characters by default. The width of the line is calculated when WriteTo is called.
-// The width is calculated against the collected header and lines.
+// SpacerLine registers a line of '-' characters by default.
+// It appends a placeholder row that is formatted using the column widths calculated
+// from the previously added header and rows whenever WriteTo runs.
+// The width of each column is based on the accumulated header and rows that preceded the call.
 func (w *Writer) SpacerLine() (err error) {
 	defer w.handlePanic(&err, "SpacerLine")
 	// spacer doesn't have a width… it's formatted later
@@ -226,6 +228,7 @@ func (w *Writer) write(writer io.Writer, cell cell, index int) (int64, error) {
 }
 
 // WriteTo an io.Writer for all collected contents in tabitha.Writer. Returns runes written and an error (if populated).
+// Note that Writer state is reset on completion of the write, allowing the Writer to be used for a new table if desired.
 func (w *Writer) WriteTo(writer io.Writer) (n int64, err error) {
 	defer w.handlePanic(&err, "Write")
 	var nn int64
@@ -246,6 +249,8 @@ func (w *Writer) WriteTo(writer io.Writer) (n int64, err error) {
 			}
 		}
 	}
+
+	w.reset()
 	return
 }
 
